@@ -1,0 +1,138 @@
+
+@font-face {
+    font-family: 'Inter Extra Bold';
+    src: url('../assets/fonts/Inter/static/Inter_18pt-ExtraBold.ttf');
+}
+@font-face {
+    font-family: 'Inter Light';
+    src: url('../assets/fonts/Inter/static/Inter_18pt-Light.ttf');
+}
+
+.mini_icon {
+    scale: 0.15;
+}
+
+.main_icon {
+    scale: 0.1;
+    filter: invert(100%);
+    margin-left: 50px;
+}
+
+.big_icon {
+    width: 200px;
+    height: 200px;
+    size: 50;
+    transition: 0.25s all;
+    box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.big_icon:hover {
+    scale: 1.1;
+    filter: brightness(125%);
+    transition: 0.25s all;
+    /* box-shadow: 4px 4px 10px 10px rgb(0, 238, 255); */
+}
+
+body {
+    font-family: 'Inter Light';
+    background: rgb(41, 41, 41);
+    background-image: radial-gradient(rgb(68, 68, 68) 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position: -19px -19px;
+    margin: 0;
+}
+
+.main_header {
+    width: 100%;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-items: left;
+    font-family: 'Inter Extra Bold';
+
+    background: linear-gradient(89.41deg, #00F365 0%, #6FF508 20%, #00C95A 40%, #03A73D 60%, #00AF2C 80%, #067B17 100%);
+
+}
+
+.main_header__text {
+    /* Task Manager */
+    position: relative;
+    width: 301px;
+    height: 81px;
+    left: 150px;
+    top: 0px;
+
+    font-family: 'Inter Extra Bold';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    margin-right: 250px;
+
+    color: #FFFFFF;
+}
+
+.links_table {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    position: relative;
+    gap: 50px;
+    top: 375px;
+}
+
+
+.task_list {
+    display: flex;
+    position: relative;
+    top: 300px;
+    gap: 30px;
+    color: white;
+    align-items:flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task_object {
+    padding-left: 75px;
+    width: 100%;
+    height: 175px;
+    background: linear-gradient(1deg, rgb(51, 51, 51), rgb(91, 91, 91));
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+}
+
+.task__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 12px;
+}
+
+.task__property {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    color: #d1d1d1;
+}
+
+.task__property:first {
+    color: black;
+}
+
+.task__title {
+    margin-left: -20px;
+    font-family: 'Inter Extra Bold';
+    font-size: 25px;
+    margin-bottom: 15px;
+}

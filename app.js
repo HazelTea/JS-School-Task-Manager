@@ -22,7 +22,6 @@ app.get('/tasks',(req,res) => {
 
 app.get('/tasks/:taskName',(req,res) => {
     const task = utils.GetTask(req.params.taskName)
-    console.log(task)
     if (task) {
         const extension = task.name.split('.')[1]
         const completeDir = task.parentPath + `\\${task.name}`
@@ -51,6 +50,36 @@ app.get('/php/tasks', (req,res) => {
     res.json({files})
 })
 
+
+app.get('/tasks/:taskName/data', (req, res) => {
+    const taskName = req.params.taskName
+    const task = utils.GetTask(taskName)
+    if (task) {
+        const dataFile = path.join(task.parentPath + `/data.json`)
+        const taskDataExists = fs.existsSync(dataFile)
+    
+        if (!taskDataExists) {
+            fs.writeFileSync(dataFile,'{"description":"N/A"}')
+        } 
+    
+        const readFile = fs.readFileSync(dataFile)
+        const fileData = JSON.parse(readFile.toString())
+        const taskStats = fs.statSync(dataFile)
+        const size = `${utils.GetTaskSize(taskName)} B`
+        const dateCreated = taskStats.birthtime.toLocaleString()
+        const dateUpdated = taskStats.mtime.toLocaleString()
+        res.json({fileData,size,dateCreated,dateUpdated})
+
+    } else res.send(error(`No task found with the name: ${taskName}.`))
+});
+
+/// OLD CODE
+
+app.get('/html/tasks', (req,res) => {
+    const files = fs.readdirSync(path.join(__dirname + htmlDirectory));
+    res.json({files})
+})
+
 app.get('/php/tasks/:taskName', (req, res) => {
     const taskName = req.params.taskName
 
@@ -63,36 +92,9 @@ app.get('/php/tasks/:taskName', (req, res) => {
         console.error(`Stderr: ${stderr}`);
         return;
         }
-        res.send(stdout);x
+        res.send(stdout);
     });
 });
-
-app.get('/tasks/:taskName/data', (req, res) => {
-    const taskName = req.params.taskName
-    const task = utils.GetTask(taskName)
-    if (task) {
-        const fileDirectory = path.join(task.parentPath + `/data.json`)
-        const taskExists = fs.existsSync(fileTaskDirectory)
-        const taskDataExists = fs.existsSync(fileDirectory)
-    
-        if (!taskDataExists && taskExists) {
-            fs.writeFileSync(fileDirectory,'{"description":"N/A"}')
-        } else if (!taskExists) {res.send(error(`No task found with the name: ${taskName}.`)); return}
-    
-        const readFile = fs.readFileSync(fileDirectory)
-        const data = JSON.parse(readFile.toString())
-        const taskStats = fs.statSync(fileDirectory)
-        const size = taskStats.size
-        res.json({data,size})
-    }
-});
-
-/// OLD CODE
-
-app.get('/html/tasks', (req,res) => {
-    const files = fs.readdirSync(path.join(__dirname + htmlDirectory));
-    res.json({files})
-})
 
 app.get('/html/tasks/:taskName', (req, res) => {
     const taskName = req.params.taskName

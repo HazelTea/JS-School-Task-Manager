@@ -8,7 +8,7 @@ const utils = {
         const dir = path.join(utils.directory + '/tasks')
         const tasks = fs.readdirSync(dir,{withFileTypes: true, recursive: true}).filter((val) => val.name.includes('.php') || val.name.includes('.html'));
         tasks.map((task) => {
-            task.parentName = null
+            task.parentName = task.parentPath.split('\\').at(-1)
         })
         return tasks
     },
@@ -17,12 +17,25 @@ const utils = {
         const tasks = utils.GetTasks()
         const task = tasks.find((val) => {
             const taskPath = val.parentPath
-            const taskPathArray = taskPath.split('\\')
-            const foundTaskName = taskPathArray[taskPath.split('\\').length - 1]
+            const foundTaskName = taskPath.split('\\').at(-1)
             return foundTaskName == taskName
         })
 
-        return task, task.parentPath
+        return task
+    },
+
+    GetTaskSize : (taskName) => {
+        const task = utils.GetTask(taskName)
+        const files = fs.readdirSync(task.parentPath,{withFileTypes:true})
+        let total = 0
+
+        for (const file of files) {
+            const filePath = path.join(file.parentPath + '\\' + file.name);
+            total += fs.statSync(filePath).size;
+        }
+
+        return total;
+
     },
 
     ExecutePhpFile : (dir,res) => {

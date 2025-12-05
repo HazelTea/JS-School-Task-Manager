@@ -1,8 +1,9 @@
 const { exec } = require('child_process');
+const { default: utils } = require('./utils');
+utils.directory = __dirname
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const { error } = require('console');
 const app = express();
 const port = 3333;
 const phpDirectory = "/tasks/php/"
@@ -15,9 +16,26 @@ app.get('/', (req,res) => {
 })
 
 app.get('/tasks',(req,res) => {
-    const dir = path.join(__dirname + '/tasks')
-    const files = fs.readdirSync(dir,{withFileTypes: true, recursive: true}).filter((val) => val.name.includes('.php'));
-    res.json({files})
+    const tasks = utils.GetTasks()
+    res.json({tasks})
+})
+
+app.get('/tasks/:taskName',(req,res) => {
+    const task = utils.GetTask(req.params.taskName)
+    console.log(task)
+    if (task) {
+        const extension = task.name.split('.')[1]
+        const completeDir = task.parentPath + `\\${task.name}`
+        switch (extension) {
+            case 'php':
+                utils.ExecutePhpFile(completeDir,res)
+            break
+    
+            case 'html':
+                res.sendFile(completeDir)
+            break    
+        }
+    }
 })
 
 app.get('/php',(req,res) => {
@@ -45,9 +63,31 @@ app.get('/php/tasks/:taskName', (req, res) => {
         console.error(`Stderr: ${stderr}`);
         return;
         }
-        res.send(stdout);
+        res.send(stdout);x
     });
 });
+
+app.get('/tasks/:taskName/data', (req, res) => {
+    const taskName = req.params.taskName
+    const task = utils.GetTask(taskName)
+    if (task) {
+        const fileDirectory = path.join(task.parentPath + `/data.json`)
+        const taskExists = fs.existsSync(fileTaskDirectory)
+        const taskDataExists = fs.existsSync(fileDirectory)
+    
+        if (!taskDataExists && taskExists) {
+            fs.writeFileSync(fileDirectory,'{"description":"N/A"}')
+        } else if (!taskExists) {res.send(error(`No task found with the name: ${taskName}.`)); return}
+    
+        const readFile = fs.readFileSync(fileDirectory)
+        const data = JSON.parse(readFile.toString())
+        const taskStats = fs.statSync(fileDirectory)
+        const size = taskStats.size
+        res.json({data,size})
+    }
+});
+
+/// OLD CODE
 
 app.get('/html/tasks', (req,res) => {
     const files = fs.readdirSync(path.join(__dirname + htmlDirectory));

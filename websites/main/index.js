@@ -5,22 +5,16 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    const clonedTemplate = taskTemplate.cloneNode(true)
    const taskObject = clonedTemplate.children[0]
    const taskPanelElements = taskObject.children.task_panel.children
-   taskPanelElements.title.innerHTML = title
+   const titleDiv = taskPanelElements.title
+   titleDiv.children.value.innerHTML = title
+   titleDiv.children.file_icon.src = `/assets/images/${fileType}-logo.svg`
    taskPanelElements.desc.children.value.innerHTML = desc
    taskPanelElements.creation_date.children.value.innerHTML = dateCreated
    taskPanelElements.update_date.children.value.innerHTML = dateUpdated
    taskPanelElements.file_size.children.value.innerHTML = fileSize
+   taskObject.classList.add(`task_object--${fileType}`)
 
-   switch (fileType) {
-      case 'html' : taskObject.classList.add('task_object--html') 
-      break
-      case 'php' : taskObject.classList.add('task_object--php')
-      break 
-   }
-
-   taskObject.addEventListener('click', () => {
-      window.location.href = `/tasks/${title}`
-   })
+   taskObject.addEventListener('click', () => window.open(`/tasks/${title}`))
    
    return clonedTemplate
 }

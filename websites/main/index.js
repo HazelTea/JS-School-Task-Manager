@@ -1,13 +1,14 @@
 const taskList = document.getElementById("taskList")
 const taskTemplate = document.getElementById("taskTemplate").content
 
-function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLocaleString(), dateUpdated = new Date(), fileSize = '0 Mb', fileType = 'html') {
+function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLocaleString(), dateUpdated = new Date(), fileSize = '0 Mb', fileType = 'html', path) {
    const clonedTemplate = taskTemplate.cloneNode(true)
    const taskObject = clonedTemplate.children[0]
    const taskPanelElements = taskObject.children.task_panel.children
-   const titleDiv = taskPanelElements.title
-   titleDiv.children.value.innerHTML = title
-   titleDiv.children.file_icon.src = `/assets/images/${fileType}-logo.svg`
+   const titleChildren = taskPanelElements.title.children
+   titleChildren.value.innerHTML = title
+   titleChildren.directory.innerHTML = path
+   titleChildren.file_icon.src = `/assets/images/${fileType}.png`
    taskPanelElements.desc.children.value.innerHTML = desc
    taskPanelElements.creation_date.children.value.innerHTML = dateCreated
    taskPanelElements.update_date.children.value.innerHTML = dateUpdated
@@ -24,6 +25,7 @@ async function UpdateTasks() {
    const res = await request
    const data = await res.json()
    const tasks = data.tasks
+   console.log(tasks)
    tasks.forEach((task) => {
       const request = fetch(`/tasks/${task.parentName}/data`)
       request.then((res) => {
@@ -33,7 +35,8 @@ async function UpdateTasks() {
             const dateUpdated = data.dateUpdated
             const fileSize = data.size
             const fileType = task.name.split('.')[1]
-            const newTask = CreateTaskElement(task.parentName,desc,dateCreated,dateUpdated,fileSize,fileType)
+            const path = `${data.parentPath}\\${task.name}`.replaceAll('\\','/')
+            const newTask = CreateTaskElement(task.parentName,desc,dateCreated,dateUpdated,fileSize,fileType,path)
             taskList.appendChild(newTask)
          })
       })

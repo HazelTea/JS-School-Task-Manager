@@ -68,7 +68,8 @@ app.get('/tasks/:taskName/data', (req, res) => {
         const size = `${utils.GetTaskSize(taskName)} B`
         const dateCreated = taskStats.birthtime.toLocaleString()
         const dateUpdated = taskStats.mtime.toLocaleString()
-        res.json({fileData,size,dateCreated,dateUpdated})
+        const parentPath = task.parentPath
+        res.json({fileData,size,dateCreated,dateUpdated,parentPath})
 
     } else res.send(error(`No task found with the name: ${taskName}.`))
 });

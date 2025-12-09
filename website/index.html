@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="website/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <template id="taskTemplate">
+        <div class="task_object">
+            <div class="task_object__gradient" name="mouse_gradient"></div>
+            <div class="task__panel" name="task_panel">
+                <div class="task__title" name="title">
+                    <img class="mini_icon" src="assets/images/html.png" name="file_icon">
+                    <div name="value">Wzory Pitagorasa</div>
+                    <div name="directory" class="task__title__directory">(C:/dupa)</div>
+                </div>
+                <div class="task__property" name="desc">
+                    <div>Description:</div>
+                    <div name="value">50 MB</div>
+                </div>
+                <div class="task__property" name="creation_date">
+                    <div>Date Created:</div>
+                    <div name="value">2020-01-01</div>
+                </div>
+                <div class="task__property" name="update_date">
+                    <div>Date Updated:</div>
+                    <div name="value">2021-01-02</div>
+                </div>
+                <div class="task__property" name="file_size">
+                    <div>File Size:</div>
+                    <div name="value">50 MB</div>
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+    <header class="main_header">
+        <span class="main_header__text">
+            Task Manager
+        </span>
+    </header>
+
+    <div class="task_list" id="taskList"></div>
+    <script src="website/index.js"></script>
+</body>
+</html>

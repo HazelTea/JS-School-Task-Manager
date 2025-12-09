@@ -1,0 +1,186 @@
+
+@font-face {
+    font-family: 'Inter Extra Bold';
+    src: url('../assets/fonts/Inter/static/Inter_18pt-ExtraBold.ttf');
+}
+@font-face {
+    font-family: 'Inter Light';
+    src: url('../assets/fonts/Inter/static/Inter_18pt-Light.ttf');
+}
+
+.mini_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.main_icon {
+    scale: 0.1;
+    filter: invert(100%);
+    margin-left: 50px;
+}
+
+.big_icon {
+    width: 200px;
+    height: 200px;
+    size: 50;
+    transition: 0.25s all;
+    box-shadow: 4px 4px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.big_icon:hover {
+    scale: 1.1;
+    filter: brightness(125%);
+    transition: 0.25s all;
+    /* box-shadow: 4px 4px 10px 10px rgb(0, 238, 255); */
+}
+
+body {
+    font-family: 'Inter Light';
+    background: rgb(41, 41, 41);
+    background-image: radial-gradient(rgb(68, 68, 68) 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position: -19px -19px;
+    margin: 0;
+}
+
+.main_header {
+    width: 100%;
+    height: 140px;
+    left: 0px;
+    top: 0px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-items: left;
+    font-family: 'Inter Extra Bold';
+    background: #ff7142;
+    background: linear-gradient(90deg,rgba(255, 113, 66, 1) 0%, rgba(224, 84, 49, 1) 50%, rgb(255, 138, 66) 75%,rgba(199, 119, 87, 1) 100%);
+
+}
+
+.main_header__text {
+    /* Task Manager */
+    position: relative;
+    width: 301px;
+    height: 81px;
+    left: 150px;
+    top: 0px;
+
+    font-family: 'Inter Extra Bold';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 23px;
+    line-height: 29px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    margin-right: 250px;
+
+    color: #FFFFFF;
+}
+
+.links_table {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    position: relative;
+    gap: 50px;
+    top: 375px;
+}
+
+.task_list {
+    display: flex;
+    position: relative;
+    top: 400px;
+    gap: 10px;
+    color: white;
+    padding: 0px 20px;
+    align-items:flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task_object--php {
+    border: rgba(81, 113, 255, 0.65);
+    border-style: solid;
+    border-width: 1px;
+    background: linear-gradient(0deg, rgba(81, 113, 255, 0.65), rgba(17, 44, 194, 0.24));
+}
+
+.task_object--html {
+    border: rgb(255, 94, 0);
+    border-style: solid;
+    border-width: 1px;
+    background: linear-gradient(0deg, rgba(255, 102, 31, 0.911), rgba(255, 94, 0, 0.24));
+}
+
+.task_object {
+    width: 100%;
+    height: 150px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.task_object__gradient {
+    position: absolute;
+    height: inherit;
+    width: 300px;
+    left: var(--x);
+    opacity: 1;
+    transition: opacity 0.25s;
+    transform: translate(-50%, 0%);
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 90%);
+}
+
+.task_object:hover {
+    
+    transition: scale 0.25s filter 0.25s;
+    filter: brightness(125%);
+    scale: 1.0025;
+}
+
+.task__panel {
+    margin-left: 75px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 11px;
+}
+
+.task__property {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    color: #d1d1d1;
+}
+
+.task__property:first {
+    color: black;
+}
+
+.task__title {
+    right:60px;
+    font-family: 'Inter Extra Bold';
+    font-size: 17px;
+    margin-bottom: 5px;
+    display: flex;
+    align-self: start;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 20px;
+}
+
+.task__title__directory {
+    font-family: 'Inter Light';
+    color: #d1d1d1;
+    margin-left: 30px;
+    font-size: 12px;
+    font-style:italic
+}

@@ -4,6 +4,7 @@ const taskTemplate = document.getElementById("taskTemplate").content
 function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLocaleString(), dateUpdated = new Date(), fileSize = '0 Mb', fileType = 'html', path) {
    const clonedTemplate = taskTemplate.cloneNode(true)
    const taskObject = clonedTemplate.children[0]
+   const mouseGradient = taskObject.children['mouse_gradient']
    const taskPanelElements = taskObject.children.task_panel.children
    const titleChildren = taskPanelElements.title.children
    titleChildren.value.innerHTML = title
@@ -16,6 +17,15 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    taskObject.classList.add(`task_object--${fileType}`)
 
    taskObject.addEventListener('click', () => window.open(`/tasks/${title}`))
+   taskObject.addEventListener('mousemove', (e) => {
+      const gradientRect = taskObject.getBoundingClientRect()
+      const x = e.clientX - gradientRect.left
+      mouseGradient.style.setProperty('--x',`${x}px`)
+      mouseGradient.style.opacity = 1
+   })
+   taskObject.addEventListener('mouseleave', () => {
+      mouseGradient.style.opacity = 0
+   })
    
    return clonedTemplate
 }

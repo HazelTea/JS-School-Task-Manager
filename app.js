@@ -50,6 +50,32 @@ app.get('/tasks/:taskName/data', (req, res) => {
     } else res.send(error(`No task found with the name: ${taskName}.`))
 });
 
+app.patch('/tasks/:taskName/data', (req,res) => {
+    const taskName = req.params.taskName
+    const query = req.query
+    const newTitle = query.title
+    const newDesc = query.desc 
+    const task = utils.GetTask(taskName)
+    if (task) {
+        const dataFile = path.join(task.parentPath + `/data.json`)
+        const taskDataExists = fs.existsSync(dataFile)
+    
+        if (newDesc || !taskDataExists) {
+            fs.writeFileSync(dataFile,`{"description":${`"${newDesc}"` || "N/A"}}`)
+        } 
+
+        if (newTitle) {
+            const newTitleDest = task.parentPath
+            .split('\\')
+            .slice(0,-1)
+            .join('\\')
+            console.log(newTitleDest,task.parentPath)
+            fs.renameSync(task.parentPath,`${newTitleDest}\\${newTitle}`)
+        }
+        res.send(task)
+    }
+})
+
 app.listen(port, () => {
     console.log(`TaskManager listening on port ${port}!`);
 });

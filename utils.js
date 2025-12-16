@@ -24,6 +24,10 @@ const utils = {
         return task
     },
 
+    UpdateTask: (properties) => {
+        
+    },
+
     GetTaskSize : (taskName) => {
         const task = utils.GetTask(taskName)
         const files = fs.readdirSync(task.parentPath,{withFileTypes:true})

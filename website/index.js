@@ -5,11 +5,12 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    const clonedTemplate = taskTemplate.cloneNode(true)
    const taskObject = clonedTemplate.children[0]
    const mouseGradient = taskObject.children['mouse_gradient']
+   const sidePanel = taskObject.children.side_panel
    const taskPanelElements = taskObject.children.task_panel.children
    const titleChildren = taskPanelElements.title.children
    titleChildren.value.innerHTML = title
    titleChildren.directory.innerHTML = path
-   titleChildren.file_icon.src = `/assets/images/${fileType}.png`
+   sidePanel.children.file_icon.src = `/assets/images/${fileType}.png`
    taskPanelElements.desc.children.value.innerHTML = desc
    taskPanelElements.creation_date.children.value.innerHTML = dateCreated
    taskPanelElements.update_date.children.value.innerHTML = dateUpdated

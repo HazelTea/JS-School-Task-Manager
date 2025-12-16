@@ -59,7 +59,7 @@ const utils = {
 
     ExecuteTask : (task,res) => {
         const completeDir = task.parentPath + `\\${task.name}`
-        exec(`C:\\xampp\\php\\php ${completeDir}`, (error, stdout, stderr) => {
+        exec(`C:\\xampp\\php\\php "${completeDir}"`, (error, stdout, stderr) => {
             if (error) {
             console.error(`Error: ${error.message}`);
             return;

@@ -53,8 +53,9 @@ const utils = {
         });
     },
 
-    ExecutePhpFile : (dir,res) => {
-        exec(`C:\\xampp\\php\\php ${dir}`, (error, stdout, stderr) => {
+    ExecuteTask : (task,res) => {
+        const completeDir = task.parentPath + `\\${task.name}`
+        exec(`C:\\xampp\\php\\php ${completeDir}`, (error, stdout, stderr) => {
             if (error) {
             console.error(`Error: ${error.message}`);
             return;
@@ -63,7 +64,18 @@ const utils = {
             console.error(`Stderr: ${stderr}`);
             return;
             }
-            res.send(stdout)
+
+            const dir = path.join(utils.directory)
+
+            const baseDir = task.parentPath
+            .replace(dir,'')
+            .replaceAll('\\','/')
+
+            const output = stdout
+            .replaceAll("'",'"')
+            .replaceAll('href="',`href="${baseDir}/`)
+            .replaceAll('src="',`src="${baseDir}/`)
+            res.send(output)
         });
     }
 }

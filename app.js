@@ -20,19 +20,7 @@ app.get('/tasks',(req,res) => {
 
 app.get('/tasks/:taskName',(req,res) => {
     const task = utils.GetTask(req.params.taskName)
-    if (task) {
-        const extension = task.name.split('.')[1]
-        const completeDir = task.parentPath + `\\${task.name}`
-        switch (extension) {
-            case 'php':
-                utils.ExecutePhpFile(completeDir,res)
-            break
-    
-            case 'html':
-                res.sendFile(completeDir)
-            break    
-        }
-    }
+    if (task) utils.ExecuteTask(task,res)
 })
 
 app.get('/tasks/:taskName/open', (req,res) => {
@@ -61,26 +49,6 @@ app.get('/tasks/:taskName/data', (req, res) => {
 
     } else res.send(error(`No task found with the name: ${taskName}.`))
 });
-
-// app.post('/html/tasks/:taskName/data', (req, res) => {
-//     const query = req.query
-//     const taskName = req.params.taskName
-//     const fileDirectory = path.join(__dirname + `/tasks/html/${taskName}/data.json`)
-//     const fileTaskDirectory = path.join(__dirname + `/tasks/html/${taskName}`)
-//     const taskExists = fs.existsSync(fileTaskDirectory)
-//     const taskDataExists = fs.existsSync(fileDirectory)
-
-//     if (!taskDataExists && taskExists) {
-//         fs.writeFileSync(fileDirectory,'{"description":"N/A"}')
-//     } else if (!taskExists) {res.send(error(`No task found with the name: ${taskName}.`)); return}
-
-//     const readFile = fs.readFileSync(fileDirectory)
-//     const newData = JSON.parse(readFile.toString())
-//     for (const property in newData) newData[property] = query[property] || newData[property]
-//     fs.writeFileSync(fileDirectory,JSON.stringify(newData))
-
-//     res.json(true)
-// });
 
 app.listen(port, () => {
     console.log(`TaskManager listening on port ${port}!`);

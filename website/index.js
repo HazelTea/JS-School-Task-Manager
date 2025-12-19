@@ -6,7 +6,8 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    const taskObject = clonedTemplate.children[0]
    const mouseGradient = taskObject.children['mouse_gradient']
    const sidePanel = taskObject.children.side_panel
-   const taskPanelElements = taskObject.children.task_panel.children
+   const taskPanel = taskObject.children.task_panel
+   const taskPanelElements = taskPanel.children
    const titleChildren = taskPanelElements.title.children
    titleChildren.value.innerHTML = title
    titleChildren.directory.innerHTML = path
@@ -17,16 +18,15 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    taskPanelElements.file_size.children.value.innerHTML = fileSize
    taskObject.classList.add(`task_object--${fileType}`)
 
-   taskObject.addEventListener('click', () => window.open(`/tasks/${title}`))
+   taskPanel.addEventListener('click', () => window.open(`/tasks/${title}`))
    taskObject.addEventListener('mousemove', (e) => {
       const gradientRect = taskObject.getBoundingClientRect()
       const x = e.clientX - gradientRect.left
       mouseGradient.style.setProperty('--x',`${x}px`)
-      mouseGradient.style.opacity = 1
    })
-   taskObject.addEventListener('mouseleave', () => {
-      mouseGradient.style.opacity = 0
-   })
+
+   taskObject.addEventListener('mouseenter', () => {mouseGradient.style.opacity = 1})
+   taskObject.addEventListener('mouseleave', () => {mouseGradient.style.opacity = 0})
    
    return clonedTemplate
 }
@@ -41,7 +41,7 @@ async function UpdateTasks() {
       const request = fetch(`/tasks/${task.parentName}/data`)
       request.then((res) => {
          res.json().then((data) => {
-            const desc = data.fileData.description
+            const desc = data.innerData.description
             const dateCreated = data.dateCreated
             const dateUpdated = data.dateUpdated
             const fileSize = data.size

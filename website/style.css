@@ -53,6 +53,7 @@ body {
     top: 0px;
     position: fixed;
     display: flex;
+    z-index: 100;
     align-items: center;
     justify-items: left;
     font-family: 'Inter Extra Bold';
@@ -99,15 +100,37 @@ body {
 }
 
 .task_list {
+    --scrollbar-width: 8px;
+    --mask-height: 20px;
+    --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
+    --mask-image-scrollbar: linear-gradient(black, black);
+    --mask-size-scrollbar: var(--scrollbar-width) 100%;
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
     display: flex;
     position: relative;
-    top: 400px;
-    gap: 10px;
+    top: 450px;
+    gap: 5px;
     color: white;
-    padding: 0px 20px;
-    align-items:flex-start;
+    padding: 50px 20px;
+    align-items: flex-start;
     flex-direction: column;
     width: 100%;
+    height: 700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    padding-bottom: var(--mask-height);
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+    mask-position: 0 0, 100% 0;
+    mask-repeat: no-repeat, no-repeat;
 }
 
 .task_object--php {
@@ -126,16 +149,13 @@ body {
 
 .task_object {
     width: 100%;
-    height: 130px;
+    height: 160px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
-    cursor: pointer;
-    padding-top: 25px;
-    padding-left: 20px;
     transition: all 0.25s;
-    gap: 30px;
+    gap: 10px;
+    z-index: 0;
 }
 
 .task_object__gradient {
@@ -143,10 +163,11 @@ body {
     height: inherit;
     width: 300px;
     left: var(--x);
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.25s;
     transform: translate(-50%, 0%);
-    background: linear-gradient(90deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 90%);
+    overflow-y: hidden;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 80%);
 }
 
 .task_object:hover {
@@ -157,11 +178,42 @@ body {
 }
 
 .task__side_panel {
-    height: 100%;
-    width: 50px;
+    margin-top: -25px;
+    padding-top: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: inherit;
+    width:fit-content;
     gap: 10px;
     display: flex;
     flex-direction: column;
+    z-index: 1;
+}
+
+.task__side_panel__edit_button {
+    transition: background-color 0.25s;
+
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.task__side_panel__edit_button > img {
+    transition: filter 0.25s, background-color 0.25s;
+    border-radius: 5px;
+}
+
+.task__side_panel__edit_button:hover > img {
+    transition: filter 0.25s, background-color 0.25s;
+    filter: brightness(50%);
+    /* background-color: rgba(255,255,255,0.1); */
 }
 
 .task__panel {
@@ -169,6 +221,11 @@ body {
     flex-direction: column;
     gap: 5px;
     font-size: 11px;
+    padding: 20px 0px;
+    width: 75%;
+    cursor: pointer;
+    z-index: 1;
+    /* background-color: #d1d1d1; */
 }
 
 .task__property {
@@ -183,7 +240,7 @@ body {
 }
 
 .task__title {
-    right:20px;
+    /* right:20px; */
     font-family: 'Inter Extra Bold';
     font-size: 17px;
     margin-bottom: 5px;

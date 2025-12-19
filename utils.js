@@ -2,6 +2,19 @@ import { exec } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 
+const phpPaths = [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\php\\php.exe",
+    "D:\\php\\php.exe",
+    "php",
+]
+
+console.log(fs.existsSync("D:\\php\\php.exe"),phpPaths[2])
+
+function GetPHPPath() {
+    return phpPaths.find((phpPath) => fs.existsSync(phpPath))
+}
+
 const utils = {
     directory : '',
     GetTasks : () => {
@@ -22,6 +35,28 @@ const utils = {
         })
 
         return task
+    },
+
+    GetTaskData : (taskName) => {
+        const task = utils.GetTask(taskName)
+        if (task) {
+            const dataFile = path.join(task.parentPath + `/data.json`)
+            const taskDataExists = fs.existsSync(dataFile)
+        
+            if (!taskDataExists) {
+                fs.writeFileSync(dataFile,'{"description":"N/A"}')
+            } 
+        
+            const readFile = fs.readFileSync(dataFile)
+            const taskStats = fs.statSync(dataFile)
+            const innerData = JSON.parse(readFile.toString())
+            const size = `${utils.GetTaskSize(taskName)} B`
+            const dateCreated = taskStats.birthtime.toLocaleString()
+            const dateUpdated = taskStats.mtime.toLocaleString()
+            const parentPath = task.parentPath
+            return ({innerData,size,dateCreated,dateUpdated,parentPath})
+    
+        } else return error(`No task found with the name: ${taskName}.`)
     },
 
     UpdateTask: (properties) => {
@@ -59,7 +94,9 @@ const utils = {
 
     ExecuteTask : (task,res) => {
         const completeDir = task.parentPath + `\\${task.name}`
-        exec(`C:\\xampp\\php\\php "${completeDir}"`, (error, stdout, stderr) => {
+        // const phpPath = GetPHPPath()
+        // if (!phpPath) return;
+        exec(`${GetPHPPath()} "${completeDir}"`, (error, stdout, stderr) => {
             if (error) {
             console.error(`Error: ${error.message}`);
             return;
@@ -81,7 +118,7 @@ const utils = {
             .replaceAll('src="',`src="${baseDir}/`)
             res.send(output)
         });
-    }
+    },
 }
 
 export default utils

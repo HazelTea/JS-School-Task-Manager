@@ -59,7 +59,6 @@ body {
 }
 
 .main_header__text {
-    /* Task Manager */
     position: relative;
     width: 301px;
     height: 81px;
@@ -80,19 +79,56 @@ body {
     color: #FFFFFF;
 }
 
-.links_table {
+.task_bar {
     display: flex;
+    flex-direction: row;
+    margin-top: 305px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 50px;
+    width: 100%;
+    border: rgb(100, 100, 100) solid 1px;
+    border-radius: 3px;
+
+    background-color: rgb(46, 46, 46);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
+}
+
+.task_bar__search_bar_frame {
+    border: none;
+    border-right: rgb(100, 100, 100) solid 1px;
+    background-color: rgb(26, 26, 26);
+    width: 300px;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    align-self: center;
-    justify-content: center;
-    position: relative;
-    gap: 50px;
-    top: 375px;
+    gap: 10px;
+}
+
+.task_bar__search_bar_icon {
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.task_bar__search_bar {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: 'Inter Light';
+    font-size: 15px;
+    height: 100%;
+    width: 100%;
+}
+
+.task_bar__element {
+    border: rgb(100, 100, 100) solid 1px;
 }
 
 .task_list {
     display: flex;
-    position: relative;
     top: 400px;
     gap: 10px;
     color: white;
@@ -100,6 +136,18 @@ body {
     align-items:flex-start;
     flex-direction: column;
     width: 100%;
+}
+
+.task_object {
+    width: 100%;
+    height: 150px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    perspective: 100px;
 }
 
 .task_object--php {
@@ -114,17 +162,6 @@ body {
     border-style: solid;
     border-width: 1px;
     background: linear-gradient(0deg, rgba(255, 102, 31, 0.911), rgba(255, 94, 0, 0.24));
-}
-
-.task_object {
-    width: 100%;
-    height: 150px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.25s;
 }
 
 .task_object__gradient {

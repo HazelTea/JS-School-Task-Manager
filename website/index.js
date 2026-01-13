@@ -22,6 +22,7 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
       const x = e.clientX - gradientRect.left
       mouseGradient.style.setProperty('--x',`${x}px`)
       mouseGradient.style.opacity = 1
+      
    })
    taskObject.addEventListener('mouseleave', () => {
       mouseGradient.style.opacity = 0

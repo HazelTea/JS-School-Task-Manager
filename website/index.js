@@ -5,28 +5,36 @@ function CreateTaskElement(title = "", desc = "", dateCreated = new Date().toLoc
    const clonedTemplate = taskTemplate.cloneNode(true)
    const taskObject = clonedTemplate.children[0]
    const mouseGradient = taskObject.children['mouse_gradient']
-   const taskPanelElements = taskObject.children.task_panel.children
+   const sidePanel = taskObject.children.side_panel
+   const taskPanel = taskObject.children.task_panel
+   const taskPanelElements = taskPanel.children
    const titleChildren = taskPanelElements.title.children
    titleChildren.value.innerHTML = title
    titleChildren.directory.innerHTML = path
-   titleChildren.file_icon.src = `/assets/images/${fileType}.png`
+   sidePanel.children.file_icon.src = `/assets/images/${fileType}.png`
    taskPanelElements.desc.children.value.innerHTML = desc
    taskPanelElements.creation_date.children.value.innerHTML = dateCreated
    taskPanelElements.update_date.children.value.innerHTML = dateUpdated
    taskPanelElements.file_size.children.value.innerHTML = fileSize
    taskObject.classList.add(`task_object--${fileType}`)
 
-   taskObject.addEventListener('click', () => window.open(`/tasks/${title}`))
+   taskPanel.addEventListener('click', () => window.open(`/tasks/${title}`))
    taskObject.addEventListener('mousemove', (e) => {
       const gradientRect = taskObject.getBoundingClientRect()
       const x = e.clientX - gradientRect.left
       mouseGradient.style.setProperty('--x',`${x}px`)
+<<<<<<< HEAD
       mouseGradient.style.opacity = 1
       
    })
    taskObject.addEventListener('mouseleave', () => {
       mouseGradient.style.opacity = 0
+=======
+>>>>>>> 7917d90b8c20ae700a20203f689ffdb23e9e1818
    })
+
+   taskObject.addEventListener('mouseenter', () => {mouseGradient.style.opacity = 1})
+   taskObject.addEventListener('mouseleave', () => {mouseGradient.style.opacity = 0})
    
    return clonedTemplate
 }
@@ -41,7 +49,7 @@ async function UpdateTasks() {
       const request = fetch(`/tasks/${task.parentName}/data`)
       request.then((res) => {
          res.json().then((data) => {
-            const desc = data.fileData.description
+            const desc = data.innerData.description
             const dateCreated = data.dateCreated
             const dateUpdated = data.dateUpdated
             const fileSize = data.size

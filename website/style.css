@@ -9,8 +9,11 @@
 }
 
 .mini_icon {
+    position: relative;
     width: 30px;
     height: 30px;
+    top:-7.5px;
+    /* transform: translateY(-50%); */
 }
 
 .main_icon {
@@ -50,11 +53,17 @@ body {
     top: 0px;
     position: fixed;
     display: flex;
+    z-index: 100;
     align-items: center;
     justify-items: left;
     font-family: 'Inter Extra Bold';
     background: #ff7142;
-    background: linear-gradient(90deg,rgba(255, 113, 66, 1) 0%, rgba(224, 84, 49, 1) 50%, rgb(255, 138, 66) 75%,rgba(199, 119, 87, 1) 100%);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 113, 66, 1) 0%, 
+        rgba(224, 84, 49, 1) 50%, 
+        rgb(255, 138, 66) 75%,
+        rgba(199, 119, 87, 1) 100%);
 
 }
 
@@ -128,14 +137,42 @@ body {
 }
 
 .task_list {
+    --scrollbar-width: 8px;
+    --mask-height: 20px;
+    --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
+    --mask-image-scrollbar: linear-gradient(black, black);
+    --mask-size-scrollbar: var(--scrollbar-width) 100%;
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+
     display: flex;
+<<<<<<< HEAD
     top: 400px;
     gap: 10px;
+=======
+    position: relative;
+    top: 450px;
+    gap: 5px;
+>>>>>>> 7917d90b8c20ae700a20203f689ffdb23e9e1818
     color: white;
-    padding: 0px 20px;
-    align-items:flex-start;
+    padding: 50px 20px;
+    align-items: flex-start;
     flex-direction: column;
     width: 100%;
+    height: 700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    padding-bottom: var(--mask-height);
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+    mask-position: 0 0, 100% 0;
+    mask-repeat: no-repeat, no-repeat;
 }
 
 .task_object {
@@ -154,25 +191,40 @@ body {
     border: rgba(81, 113, 255, 0.65);
     border-style: solid;
     border-width: 1px;
-    background: linear-gradient(0deg, rgba(81, 113, 255, 0.65), rgba(17, 44, 194, 0.24));
+    background: linear-gradient(0deg, rgba(81, 113, 255, 0.85), rgba(17, 44, 194, 0.24));
 }
 
 .task_object--html {
     border: rgb(255, 94, 0);
     border-style: solid;
     border-width: 1px;
-    background: linear-gradient(0deg, rgba(255, 102, 31, 0.911), rgba(255, 94, 0, 0.24));
+    background: linear-gradient(0deg, rgba(255, 102, 31, 0.85), rgba(255, 94, 0, 0.24));
 }
 
+<<<<<<< HEAD
+=======
+.task_object {
+    width: 100%;
+    height: 160px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.356);
+    display: flex;
+    flex-direction: row;
+    transition: all 0.25s;
+    gap: 10px;
+    z-index: 0;
+}
+
+>>>>>>> 7917d90b8c20ae700a20203f689ffdb23e9e1818
 .task_object__gradient {
     position: absolute;
     height: inherit;
     width: 300px;
     left: var(--x);
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.25s;
     transform: translate(-50%, 0%);
-    background: linear-gradient(90deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 90%);
+    overflow-y: hidden;
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0) 80%);
 }
 
 .task_object:hover {
@@ -182,12 +234,55 @@ body {
     scale: 1.0025;
 }
 
+.task__side_panel {
+    margin-top: -25px;
+    padding-top: 45px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: inherit;
+    width:fit-content;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.task__side_panel__edit_button {
+    transition: background-color 0.25s;
+
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.task__side_panel__edit_button > img {
+    transition: filter 0.25s, background-color 0.25s;
+    border-radius: 5px;
+}
+
+.task__side_panel__edit_button:hover > img {
+    transition: filter 0.25s, background-color 0.25s;
+    filter: brightness(50%);
+    /* background-color: rgba(255,255,255,0.1); */
+}
+
 .task__panel {
-    margin-left: 75px;
     display: flex;
     flex-direction: column;
     gap: 5px;
     font-size: 11px;
+    padding: 20px 0px;
+    width: 75%;
+    cursor: pointer;
+    z-index: 1;
+    /* background-color: #d1d1d1; */
 }
 
 .task__property {
@@ -202,7 +297,7 @@ body {
 }
 
 .task__title {
-    right:60px;
+    /* right:20px; */
     font-family: 'Inter Extra Bold';
     font-size: 17px;
     margin-bottom: 5px;

@@ -14,7 +14,9 @@ app.get('/', (req,res) => {
 })
 
 app.get('/tasks',(req,res) => {
-    const tasks = utils.GetTasks()
+    const showData = req.query.showData
+    const showDataJson = showData ? JSON.parse(showData) : false
+    const tasks = utils.GetTasks(showData)
     res.json({tasks})
 })
 

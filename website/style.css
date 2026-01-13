@@ -93,7 +93,6 @@ body {
     flex-direction: row;
     margin-top: 305px;
     margin-left: 20px;
-    margin-bottom: 20px;
     height: 50px;
     width: 100%;
     border: rgb(100, 100, 100) solid 1px;
@@ -130,6 +129,7 @@ body {
     font-size: 15px;
     height: 100%;
     width: 100%;
+    color: white;
 }
 
 .task_bar__element {
@@ -138,32 +138,28 @@ body {
 
 .task_list {
     --scrollbar-width: 8px;
-    --mask-height: 20px;
+    --mask-height: 30px;
     --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
     --mask-image-scrollbar: linear-gradient(black, black);
     --mask-size-scrollbar: var(--scrollbar-width) 100%;
     --mask-image-content: linear-gradient(
         to bottom,
         transparent,
-        black var(--mask-height),
+        black 15px,
         black calc(100% - var(--mask-height)),
         transparent
     );
 
     display: flex;
-    position: relative;
-    top: 450px;
-    gap: 5px;
+    gap: 10px;
     color: white;
-    padding: 50px 20px;
+    padding: 10px 20px;
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
-    height: 700px;
+    height: 560px;
     overflow-y: scroll;
     overflow-x: hidden;
-
-    padding-bottom: var(--mask-height);
     mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
     mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
     mask-position: 0 0, 100% 0;
@@ -180,6 +176,7 @@ body {
     cursor: pointer;
     transition: all 0.25s;
     perspective: 100px;
+    border-radius: 3;
 }
 
 .task_object--php {
@@ -227,7 +224,7 @@ body {
 }
 
 .task__side_panel {
-    margin-top: -25px;
+    margin-top: 15px;
     padding-top: 45px;
     padding-left: 10px;
     padding-right: 10px;

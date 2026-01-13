@@ -17,17 +17,20 @@ function GetPHPPath() {
 
 const utils = {
     directory : '',
-    GetTasks : () => {
+    GetTasks : (ShowData = false) => {
         const dir = path.join(utils.directory + '/tasks')
         const tasks = fs.readdirSync(dir,{withFileTypes: true, recursive: true}).filter((val) => val.name.includes('.php') || val.name.includes('.html'));
         tasks.map((task) => {
+            if (ShowData) {
+                console.log(utils.GetTaskData(task.name))
+            }
             task.parentName = task.parentPath.split('\\').at(-1)
         })
         return tasks
     },
 
     GetTask : (taskName) => {
-        const tasks = utils.GetTasks()
+        const tasks = utils.GetTasks(false)
         const task = tasks.find((val) => {
             const taskPath = val.parentPath
             const foundTaskName = taskPath.split('\\').at(-1)

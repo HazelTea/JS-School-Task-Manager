@@ -17,14 +17,15 @@ function GetPHPPath() {
 
 const utils = {
     directory : '',
-    GetTasks : (ShowData = false) => {
+    GetTasks : (showData = false) => {
         const dir = path.join(utils.directory + '/tasks')
         const tasks = fs.readdirSync(dir,{withFileTypes: true, recursive: true}).filter((val) => val.name.includes('.php') || val.name.includes('.html'));
         tasks.map((task) => {
-            if (ShowData) {
-                console.log(utils.GetTaskData(task.name))
+            const parentName = task.parentPath.split('\\').at(-1)
+            task.parentName = parentName
+            if (showData) {
+                task.data = utils.GetTaskData(task.parentName)
             }
-            task.parentName = task.parentPath.split('\\').at(-1)
         })
         return tasks
     },
@@ -97,16 +98,14 @@ const utils = {
 
     ExecuteTask : (task,res) => {
         const completeDir = task.parentPath + `\\${task.name}`
-        // const phpPath = GetPHPPath()
-        // if (!phpPath) return;
         exec(`${GetPHPPath()} "${completeDir}"`, (error, stdout, stderr) => {
             if (error) {
-            console.error(`Error: ${error.message}`);
-            return;
+                console.error(`Error: ${error.message}`);
+                return;
             }
             if (stderr) {
-            console.error(`Stderr: ${stderr}`);
-            return;
+                console.error(`Stderr: ${stderr}`);
+                return;
             }
 
             const dir = path.join(utils.directory)

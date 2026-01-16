@@ -140,7 +140,7 @@ body {
 
 .task_list {
     --scrollbar-width: 8px;
-    --mask-height: 30px;
+    --mask-height: 50px;
     --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
     --mask-image-scrollbar: linear-gradient(black, black);
     --mask-size-scrollbar: var(--scrollbar-width) 100%;
@@ -152,20 +152,30 @@ body {
         transparent
     );
 
+    --scaling : 50;
+    
     display: flex;
+    flex: 100%;
     gap: 10px;
     color: white;
     padding: 10px 20px;
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
-    height: 560px;
+    height: 69vh;
+    vertical-align: middle;
     overflow-y: scroll;
     overflow-x: hidden;
     mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
     mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
+    transition: filter 0.075s;
+}
+
+.task_list--searching {
+    filter: brightness(45%);
+    transition: filter 0.075s;
 }
 
 .task_object {
@@ -238,7 +248,7 @@ body {
     z-index: 1;
 }
 
-.task__side_panel__edit_button {
+.task__side_panel__button {
     transition: background-color 0.25s;
 
     width: fit-content;
@@ -251,14 +261,15 @@ body {
     border: none;
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
-.task__side_panel__edit_button > img {
+.task__side_panel__button > img {
     transition: filter 0.25s, background-color 0.25s;
     border-radius: 5px;
 }
 
-.task__side_panel__edit_button:hover > img {
+.task__side_panel__button:hover > img {
     transition: filter 0.25s, background-color 0.25s;
     filter: brightness(50%);
     /* background-color: rgba(255,255,255,0.1); */

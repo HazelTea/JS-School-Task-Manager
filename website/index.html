@@ -13,8 +13,11 @@
             <div class="task_object__gradient" name="mouse_gradient"></div>
             <div class="task__side_panel" name="side_panel">
                 <img class="mini_icon" src="assets/images/html.png" name="file_icon">
-                <button class="task__side_panel__edit_button" name="edit_button">
+                <button class="task__side_panel__button" name="edit_button">
                     <img class="mini_icon" src="assets/images/edit_icon.svg">
+                </button>
+                <button class="task__side_panel__button" name="code_button">
+                    <img class="mini_icon" src="assets/images/vsc-icon.svg">
                 </button>
             </div>
             <div class="task__panel" name="task_panel">
@@ -52,7 +55,7 @@
     <div class="task_bar">
         <div class="task_bar__search_bar_frame">
             <img class="task_bar__search_bar_icon" src="/assets/images/search-icon.svg">
-            <input type="search" class="task_bar__search_bar" placeholder="Search">
+            <input type="search" class="task_bar__search_bar" placeholder="Search" id="search_bar">
         </div>
     </div>
     <div class="task_list" id="taskList"></div>

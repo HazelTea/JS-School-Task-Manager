@@ -83,7 +83,7 @@ const utils = {
 
     OpenTaskInCode : (res,taskName) => {
         const task = utils.GetTask(taskName)
-        exec(`code ${task.parentPath}`, (error, stdout, stderr) => {
+        exec(`code "${task.parentPath}"`, (error, stdout, stderr) => {
             if (error) {
             console.error(`Error: ${error.message}`);
             return;

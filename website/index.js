@@ -1,7 +1,7 @@
 const taskList = document.getElementById("taskList")
 const taskTemplate = document.getElementById("taskTemplate").content
 const searchBar = document.getElementById("search_bar")
-const searchTimer = 300
+const searchTimer = 250
 
 function ApplyGradientInteraction(taskObject,mouseGradient, e) {
    const gradientRect = taskObject.getBoundingClientRect()

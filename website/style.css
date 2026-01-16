@@ -174,7 +174,7 @@ body {
 }
 
 .task_list--searching {
-    filter: brightness(45%);
+    filter: brightness(65%);
     transition: filter 0.075s;
 }
 

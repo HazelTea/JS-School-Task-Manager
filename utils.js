@@ -100,11 +100,11 @@ const utils = {
         const completeDir = task.parentPath + `\\${task.name}`
         exec(`${GetPHPPath()} "${completeDir}"`, (error, stdout, stderr) => {
             if (error) {
-                console.error(`Error: ${error.message}`);
+                res.send(`Error: ${error.message}`);
                 return;
             }
             if (stderr) {
-                console.error(`Stderr: ${stderr}`);
+                res.send(`Stderr: ${stderr}`);
                 return;
             }
 

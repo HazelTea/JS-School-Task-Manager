@@ -138,6 +138,12 @@ body {
     border: rgb(100, 100, 100) solid 1px;
 }
 
+.task_list_frame {
+    color: white;
+    width: 100%;
+    height: 69vh;
+}
+
 .task_list {
     --scrollbar-width: 8px;
     --mask-height: 50px;
@@ -154,15 +160,16 @@ body {
 
     --scaling : 50;
     
+    position: absolute;
     display: flex;
     flex: 100%;
     gap: 10px;
     color: white;
-    padding: 10px 20px;
     align-items: flex-start;
     flex-direction: column;
     width: 100%;
     height: 69vh;
+    padding: 10px 20px;
     vertical-align: middle;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -171,6 +178,10 @@ body {
     mask-position: 0 0, 100% 0;
     mask-repeat: no-repeat, no-repeat;
     transition: filter 0.075s;
+}
+
+.task_list_visual {
+    position: absolute;
 }
 
 .task_list--searching {

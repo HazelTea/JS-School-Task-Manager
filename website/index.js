@@ -1,7 +1,10 @@
 const taskList = document.getElementById("taskList")
+// const taskListVisual = document.getElementById("taskListVisual")
 const taskTemplate = document.getElementById("taskTemplate").content
 const searchBar = document.getElementById("search_bar")
 const searchTimer = 250
+
+// taskListVisual.hidden = true
 
 function ApplyGradientInteraction(taskObject,mouseGradient, e) {
    const gradientRect = taskObject.getBoundingClientRect()
@@ -91,11 +94,17 @@ let typingStarted = false
 
 function Search() {
   clearTimeout(typingTimer);
-  if (!typingStarted) taskList.classList.add('task_list--searching')
+  if (!typingStarted) {
+   // taskListVisual.replaceChildren(taskList.children)
+   // taskListVisual.hidden = false
+   taskList.hidden = true
+}
   typingStarted = true
   typingTimer = setTimeout(() => {
-    taskList.classList.remove('task_list--searching')
     UpdateTasks({dataType: 'dateCreated', sortSign: 1})
+    taskList.classList.remove('task_list--searching')
+    taskList.hidden = false
+   //  taskListVisual.hidden = true
     typingStarted = false;
   }, searchTimer);
 }
